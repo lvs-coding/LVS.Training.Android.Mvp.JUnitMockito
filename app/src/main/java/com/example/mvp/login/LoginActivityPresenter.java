@@ -47,12 +47,31 @@ public class LoginActivityPresenter implements LoginActivityMVP.Presenter {
              * We check if the view is still active because Android operating system can kill an
              * activity at any time.
              */
-            if(view != null) {
+            if (view != null) {
                 view.setFirstName(user.getFirstName());
                 view.setLastName(user.getLastName());
             }
         } else {
             view.showUserNotAvailable();
         }
+    }
+
+    /**
+     * This method is her for training on the tests part but it's not used in the code
+     */
+    @Override
+    public void saveUser() {
+
+        if (view != null) {
+            if (view.getFirstName().trim().equals("") || view.getLastName().trim().equals("")) {
+                view.showInputError();
+            } else {
+
+                model.createUser(view.getFirstName(), view.getLastName());
+                view.showUserSavedMessage();
+
+            }
+        }
+
     }
 }
